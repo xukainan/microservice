@@ -17,6 +17,9 @@
         <module>eureka-server</module>
         <module>order</module>
         <module>user</module>
+        <module>model</module>
+        <module>domain</module>
+        <module>config</module>
     </modules>
 
 
