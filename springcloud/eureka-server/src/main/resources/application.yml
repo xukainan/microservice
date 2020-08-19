@@ -1,15 +1,33 @@
+#server:
+#    port: 8761
+#    servlet:
+#      context-path: /cloud
+#eureka:
+#  instance:
+#    hostname: localhost
+#  client:
+#    register-with-eureka: false
+#    fetch-registry: false
+#    service-url:
+#      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+#  server:
+#    wait-time-in-ms-when-sync-empty: 0
+#    enable-self-preservation: false
+
+#集群
 server:
-    port: 8761
-    servlet:
-      context-path: /cloud
+  port: 8762 #8762、8761
+  servlet:
+    context-path: /
 eureka:
   instance:
-    hostname: localhost
+    hostname: local.dsp.fang.com  #local.dsp.fang.com、local.plan.fang.com 要不一样，都写localhost不行
   client:
     register-with-eureka: false
     fetch-registry: false
     service-url:
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+      defaultZone: http://local.plan.fang.com:8761/eureka/
+      #http://local.plan.fang.com/eureka/、http://local.dsp.fang.com/eureka/
   server:
     wait-time-in-ms-when-sync-empty: 0
     enable-self-preservation: false
