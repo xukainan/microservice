@@ -14,7 +14,7 @@ eureka:
     #关闭自我保护模式
     enable-self-preservation: true
     #扫描失效服务的间隔时间（单位毫秒，默认是60*1000）即60秒
-    eviction-interval-timer-in-ms: 5000
+    eviction-interval-timer-in-ms: 500000
 
 #集群
 #server:
