@@ -8,15 +8,20 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>user</artifactId>
+    <artifactId>user-consul</artifactId>
 
 
     <dependencies>
-        <!--eureka-->
+        <!--consul-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+            <artifactId>spring-cloud-starter-consul-discovery</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
 
         <!--热部署-->
         <dependency>
