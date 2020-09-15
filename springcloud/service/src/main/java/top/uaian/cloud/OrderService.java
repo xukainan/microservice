@@ -16,8 +16,8 @@ import java.util.List;
  * author: xukainan <br>
  * version: 1.0 <br>
  */
-@FeignClient(name="EUREKA-CLIENT-PRODUCER-ORDER")
 @Component
+@FeignClient(name="EUREKA-CLIENT-PRODUCER-ORDER")
 public interface OrderService {
 
     @GetMapping("/order/listOrdersByUserCode")
