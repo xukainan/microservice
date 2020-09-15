@@ -23,6 +23,7 @@
         <module>config</module>
         <module>order-consul</module>
         <module>user-consul</module>
+        <module>service</module>
     </modules>
 
 

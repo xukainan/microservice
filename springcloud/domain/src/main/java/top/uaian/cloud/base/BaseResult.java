@@ -1,6 +1,8 @@
 package top.uaian.cloud.base;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * description:  <br>
@@ -9,6 +11,8 @@ import lombok.Data;
  * version: 1.0 <br>
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class BaseResult<T> {
     private int code;
     private String message;
