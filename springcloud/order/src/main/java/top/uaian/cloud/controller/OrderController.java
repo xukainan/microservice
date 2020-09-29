@@ -33,6 +33,11 @@ public class OrderController {
         list2.add(order2);
         datas.put("00001", list1);
         datas.put("00002", list2);
+        try {
+            Thread.sleep(100000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         return baseResult.renderSuccess(datas.get(usercode));
     }

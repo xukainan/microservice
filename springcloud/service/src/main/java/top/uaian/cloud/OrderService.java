@@ -17,6 +17,7 @@ import java.util.List;
  * version: 1.0 <br>
  */
 @Component
+//@FeignClient(name="EUREKA-CLIENT-PRODUCER-ORDER", fallback = "...") feign中直接使用hystrix，需要配置application
 @FeignClient(name="EUREKA-CLIENT-PRODUCER-ORDER")
 public interface OrderService {
 
