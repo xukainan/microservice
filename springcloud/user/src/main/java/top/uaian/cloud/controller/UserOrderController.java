@@ -38,7 +38,7 @@ public class UserOrderController {
     })
 //    @HystrixCommand(fallbackMethod = "listUserOrders_error");
 //    @HystrixCommand
-    public BaseResult<List<Order>> listUserOrders(@RequestParam("usercode") String usercode){
+    public BaseResult<List<Order>> listUserOrders(@RequestParam(value = "usercode",required = false, defaultValue = "") String usercode){
         BaseResult<List<Order>> baseResult = new BaseResult<List<Order>>();
         baseResult = orderService.listUserOrders(usercode);
         return baseResult;

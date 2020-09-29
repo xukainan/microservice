@@ -1,5 +1,8 @@
 package top.uaian.cloud.controller;
 
+import cn.hutool.core.util.StrUtil;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,7 +24,16 @@ import java.util.*;
 public class OrderController {
 
     @GetMapping("/listOrdersByUserCode")
+    @HystrixCommand(fallbackMethod = "listOrdersByUid_fallback",commandProperties = {
+            @HystrixProperty(name = "circuitBreaker.enabled", value = "true"),
+            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "10"),
+            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "10000"),
+            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "60")
+    })
     public BaseResult<List<Order>> listOrdersByUid(@RequestParam("usercode") String usercode){
+        if(StrUtil.isBlank(usercode)){
+            throw new RuntimeException("usercode 为空");
+        }
         System.out.println("请求的端口为：" + ServiceInfoListener.getPort());
         BaseResult<List<Order>> baseResult= new BaseResult<>();
         Map<String, List<Order>> datas = new HashMap<String, List<Order>>();
@@ -33,12 +45,17 @@ public class OrderController {
         list2.add(order2);
         datas.put("00001", list1);
         datas.put("00002", list2);
-        try {
-            Thread.sleep(100000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        //模拟超时
+//        try {
+//            Thread.sleep(100000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
         return baseResult.renderSuccess(datas.get(usercode));
+    }
+
+    public BaseResult<List<Order>> listOrdersByUid_fallback(String usercode){
+        return new BaseResult().renderError(400, "熔断！");
     }
 }
