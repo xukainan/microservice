@@ -33,9 +33,9 @@ public class UserOrderController {
     OrderService orderService;
 
     @GetMapping("/listOrders")
-    @HystrixCommand(fallbackMethod = "timeoutMethod",commandProperties = {
-            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000")
-    })
+//    @HystrixCommand(fallbackMethod = "timeoutMethod",commandProperties = {
+//            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000")
+//    })
 //    @HystrixCommand(fallbackMethod = "listUserOrders_error");
 //    @HystrixCommand
     public BaseResult<List<Order>> listUserOrders(@RequestParam(value = "usercode",required = false, defaultValue = "") String usercode){
@@ -44,18 +44,18 @@ public class UserOrderController {
         return baseResult;
     }
 
-    public BaseResult<List<Order>> listUserOrders_error(@RequestParam("usercode") String usercode){
-        return new BaseResult().renderError(404, "查询失败！");
-    }
-
-    public BaseResult<List<Order>> defaultFallbackMethod(){
-        return new BaseResult().renderError(400, "查询失败！");
-
-    }
-
-    public BaseResult<List<Order>> timeoutMethod(String usercode){
-        return new BaseResult().renderError(400, "超时！");
-
-    }
+//    public BaseResult<List<Order>> listUserOrders_error(@RequestParam("usercode") String usercode){
+//        return new BaseResult().renderError(404, "查询失败！");
+//    }
+//
+//    public BaseResult<List<Order>> defaultFallbackMethod(){
+//        return new BaseResult().renderError(400, "查询失败！");
+//
+//    }
+//
+//    public BaseResult<List<Order>> timeoutMethod(String usercode){
+//        return new BaseResult().renderError(400, "超时！");
+//
+//    }
 
 }
