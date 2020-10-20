@@ -45,12 +45,12 @@ public class OrderController {
         list2.add(order2);
         datas.put("00001", list1);
         datas.put("00002", list2);
-        //模拟超时
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        //模拟超时
+//        try {
+//            Thread.sleep(10000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
         return baseResult.renderSuccess(datas.get(usercode));
     }

@@ -17,9 +17,9 @@ import java.util.List;
  * version: 1.0 <br>
  */
 @Component
-@FeignClient(name="EUREKA-CLIENT-PRODUCER-ORDER", fallback = OrderServiceFallback.class)  //feign中直接使用hystrix
+//@FeignClient(name="EUREKA-CLIENT-PRODUCER-ORDER", fallback = OrderServiceFallback.class)  //feign中直接使用hystrix
 // ，需要配置application
-//@FeignClient(name="EUREKA-CLIENT-PRODUCER-ORDER")
+@FeignClient(name="EUREKA-CLIENT-PRODUCER-ORDER")
 public interface OrderService {
 
     @GetMapping("/order/listOrdersByUserCode")
