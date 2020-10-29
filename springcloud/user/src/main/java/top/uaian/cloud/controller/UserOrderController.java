@@ -5,6 +5,7 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.netflix.ribbon.proxy.annotation.Hystrix;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +32,8 @@ public class UserOrderController {
 
     @Autowired
     OrderService orderService;
+    @Value("${env}")
+    String env;
 
     @GetMapping("/listOrders")
 //    @HystrixCommand(fallbackMethod = "timeoutMethod",commandProperties = {
@@ -57,5 +60,12 @@ public class UserOrderController {
 //        return new BaseResult().renderError(400, "超时！");
 //
 //    }
+
+    @GetMapping("/testConfig")
+    public BaseResult<String> testConfig(){
+        BaseResult<String> baseResult = new BaseResult<>();
+        baseResult.renderSuccess(env);
+        return baseResult;
+    }
 
 }
