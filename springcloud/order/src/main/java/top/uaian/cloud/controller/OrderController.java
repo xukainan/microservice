@@ -3,10 +3,12 @@ package top.uaian.cloud.controller;
 import cn.hutool.core.util.StrUtil;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import top.uaian.cloud.MessageProviderService;
 import top.uaian.cloud.base.BaseResult;
 import top.uaian.cloud.listener.ServiceInfoListener;
 import top.uaian.cloud.order.Order;
@@ -22,6 +24,9 @@ import java.util.*;
 @RestController
 @RequestMapping("/order")
 public class OrderController {
+
+    @Autowired
+    MessageProviderService messageProviderService;
 
     @GetMapping("/listOrdersByUserCode")
     @HystrixCommand(fallbackMethod = "listOrdersByUid_fallback",commandProperties = {
@@ -53,6 +58,11 @@ public class OrderController {
 //        }
 
         return baseResult.renderSuccess(datas.get(usercode));
+    }
+
+    @GetMapping("/sendMsg")
+    public String sendMsg(@RequestParam("msg") String msg){
+        return messageProviderService.sendMessage(msg);
     }
 
     public BaseResult<List<Order>> listOrdersByUid_fallback(String usercode){

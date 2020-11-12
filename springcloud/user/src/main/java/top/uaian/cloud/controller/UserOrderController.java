@@ -34,7 +34,7 @@ public class UserOrderController {
 
     @Autowired
     OrderService orderService;
-    @Value("${env}")
+    @Value("${env:local}")
     String env;
 
     @GetMapping("/listOrders")
