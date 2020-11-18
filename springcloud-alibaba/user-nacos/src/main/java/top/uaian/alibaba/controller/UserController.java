@@ -7,9 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import top.uaian.alibaba.mapper.UserMapper;
+import top.uaian.alibaba.model.User;
 
 /**
  * description:  <br>
@@ -22,6 +25,8 @@ public class UserController {
 
     @Autowired
     RestTemplate restTemplate;
+    @Autowired
+    UserMapper userMapper;
 
     @Value("${service.url.nacos-order-provider}")
     private String service;
@@ -47,5 +52,19 @@ public class UserController {
 
     public String fallback(Throwable throwable){
         return "fallback:" + throwable.getMessage();
+    }
+
+
+    @GetMapping("/getUser/{id}")
+    public String getUser(@PathVariable int id){
+        User user = userMapper.selectOne(id);
+        return  user.toString();
+    }
+
+    @GetMapping("/minusMoney")
+    public int minusMoney(@RequestParam double money, @RequestParam int userid){
+        int i = userMapper.minusMoney(userid, money);
+//        i = 1/0;
+        return i;
     }
 }
